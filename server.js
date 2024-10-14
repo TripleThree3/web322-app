@@ -1,3 +1,15 @@
+/*********************************************************************************
+WEB322 – Assignment 02
+I declare that this assignment is my own work in accordance with Seneca Academic Policy.
+No part of this assignment has been copied manually or electronically from any other source (including 3rd party web sites) or
+distributed to other students.
+Name: Kian Mohammadzadeh Gharbi
+Student ID: 111068227
+Date: Oct 13th, 2024
+Vercel Web App URL: N/A
+GitHub Repository URL: https://github.com/TripleThree3/web322-app
+********************************************************************************/
+
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -14,14 +26,13 @@ app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'about.html'))
 })
 
-// --------------------------------------------------------------------------------------
-// Left off finishing step 5. Walk through code 2 times and ensure you fully understand what is done up until now before continuing
-// Reference old class examples in "Practices" folder if you forgot some stuff, goodluck future me.
-
 app.get('/shop', (req, res) => {
     storeService.getPublishedItems()
         .then((items) => {
             res.json(items)
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err })
         })
 })
 
@@ -30,12 +41,18 @@ app.get('/items', (req, res) => {
         .then((items) => {
             res.json(items)
         })
+        .catch((err) => {
+            res.status(500).json({ message: err })
+        })
 })
 
 app.get('/categories', (req, res) => {
     storeService.getCategories()
         .then((categories) => {
             res.json(categories)
+        })
+        .catch((err) => {
+            res.status(500).json({ message: err })
         })
 })
 
