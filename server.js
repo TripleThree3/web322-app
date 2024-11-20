@@ -10,6 +10,7 @@ Vercel Web App URL: N/A
 GitHub Repository URL: https://github.com/TripleThree3/web322-app
 ********************************************************************************/
 
+const { send } = require('micro');
 const express = require('express')
 const path = require('path')
 const app = express()
