@@ -13,7 +13,7 @@ GitHub Repository URL: https://github.com/TripleThree3/web322-app
 const express = require('express')
 const path = require('path')
 const app = express()
-const port = 8080;
+const port = process.env.PORT || 8080;
 const storeService = require('./store-service.js')
 
 app.use(express.static('public'))
