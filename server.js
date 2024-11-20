@@ -17,6 +17,8 @@ const app = express()
 const port = process.env.PORT || 8080;
 const storeService = require('./store-service.js')
 
+module.exports = app;
+
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
