@@ -10,62 +10,126 @@ Vercel Web App URL: N/A
 GitHub Repository URL: https://github.com/TripleThree3/web322-app
 ********************************************************************************/
 
-const express = require('express')
-const path = require('path')
-const app = express()
-const port = 8080;
-const storeService = require('./store-service.js')
+const express = require('express');
 
-app.use(express.static('public'))
+const path = require('path');
+
+const storeService = require('./store-service.js');
+ 
+const app = express();
+
+const port = process.env.PORT || 8080;
+ 
+// Serve static files
+
+app.use(express.static('public'));
+ 
+// Route to redirect to the about page
 
 app.get('/', (req, res) => {
-    res.redirect('/about')
-})
+
+    res.redirect('/about');
+
+});
+ 
+
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'about.html'))
-})
+
+    res.sendFile(path.join(__dirname, 'views', 'about.html'));
+
+});
+ 
+// Route to get published items from storeService
 
 app.get('/shop', (req, res) => {
+
     storeService.getPublishedItems()
+
         .then((items) => {
-            res.json(items)
+
+            res.json(items);
+
         })
+
         .catch((err) => {
-            res.status(500).json({ message: err })
-        })
-})
+
+            res.status(500).json({ message: err });
+
+        });
+
+});
+ 
+
 
 app.get('/items', (req, res) => {
+
     storeService.getAllItems()
+
         .then((items) => {
-            res.json(items)
+
+            res.json(items);
+
         })
+
         .catch((err) => {
-            res.status(500).json({ message: err })
-        })
-})
+
+            res.status(500).json({ message: err });
+
+        });
+
+});
+ 
+
 
 app.get('/categories', (req, res) => {
+
     storeService.getCategories()
+
         .then((categories) => {
-            res.json(categories)
+
+            res.json(categories);
+
         })
+
         .catch((err) => {
-            res.status(500).json({ message: err })
-        })
-})
+
+            res.status(500).json({ message: err });
+
+        });
+
+});
+ 
+
 
 app.use((req, res) => {
-    res.status(404).send('Page Not Found')
-})
+
+    res.status(404).send('Page Not Found');
+
+});
+ 
+
 
 storeService.initialize()
+
     .then(() => {
-        app.listen(port, () => {
-            console.log(`Server is running on http://localhost:${port}`)
-        })
+
+        console.log('Store Service Initialized');
+
     })
+
     .catch((err) => {
-        console.error('Failed to initialize store-service:', err)
-    })
+
+        console.error('Failed to initialize store-service:', err);
+
+    });
+ 
+
+
+module.exports = (req, res) => {
+
+    app(req, res);
+
+};
+
+ 
